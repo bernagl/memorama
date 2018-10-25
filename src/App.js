@@ -34,39 +34,42 @@ class App extends Component {
   getRandomNumber = () => Math.floor(Math.random() * 6 + 1)
 
   handleCard = (number, position) => {
-    const { selectedPosition, numberSelected } = this.state
-    if (!numberSelected) {
-      this.setState({ numberSelected: number, selectedPosition: position })
-    } else {
-      if (number === numberSelected && selectedPosition !== position) {
-        this.setState(({ cards, points }) => {
-          const cardsCopy = [...cards]
-          cardsCopy[selectedPosition] = {
-            ...cardsCopy[selectedPosition],
-            status: true
+    // const { selectedPosition, numberSelected } = this.state
+    let timeout = false
+    this.setState(
+      ({ cards, numberSelected, points, selectedPosition }) => {
+        if (!numberSelected) {
+          return { numberSelected: number, selectedPosition: position }
+        } else {
+          if (number === numberSelected && selectedPosition !== position) {
+            const cardsCopy = [...cards]
+            cardsCopy[selectedPosition] = {
+              ...cardsCopy[selectedPosition],
+              status: true
+            }
+            cardsCopy[position] = { ...cardsCopy[position], status: true }
+            return {
+              cards: cardsCopy,
+              selected: null,
+              selectedPosition: null,
+              numberSelected: null,
+              points: points + 1
+            }
+          } else {
+            timeout = true
+            return {
+              selectedPosition: position,
+              numberSelected: null
+            }
           }
-          cardsCopy[position] = { ...cardsCopy[position], status: true }
-          return {
-            cards: cardsCopy,
-            selected: null,
-            selectedPosition: null,
-            numberSelected: null,
-            points: points + 1
-          }
-        })
-      } else {
-        this.setState(
-          {
-            selectedPosition: position,
-            numberSelected: null
-          },
-          () =>
-            setTimeout(() => {
-              this.setState({ selectedPosition: null })
-            }, 200)
-        )
-      }
-    }
+        }
+      },
+      () =>
+        timeout &&
+        setTimeout(() => {
+          this.setState({ selectedPosition: null })
+        }, 200)
+    )
   }
 
   render() {
