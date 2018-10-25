@@ -12,3 +12,79 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+/* @media (max-width: 768px) {
+  .memorama {
+    display: grid;
+    grid-template-columns: repeat(3, 90px);
+    grid-template-rows: repeat(4, 90px);
+    grid-gap: 10px;
+  }
+} */
+
+.memorama {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(4, 100px);
+  grid-gap: 10px;
+}
+
+.memorama .memorama__card {
+  border-radius: 5px;
+  background-color: #e8e8e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.memorama .memorama__credits {
+  grid-column: span 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: lightgray;
+}
+
+.memorama .memorama__card:hover {
+  background-color: #34ace0;
+  color: white;
+  transition: .5s;
+}
+
+.memorama .memorama__card.active {
+  background-color: #218c74;
+  color: white;
+}
+
+.memorama .memorama__card.selected {
+  background-color: #227093;
+  color: white;
+}
+
+.congratulations .congratulations__box {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: lightslategray;
+  opacity: .5;
+}
+
+.congratulations button.congratulations__button {
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  top: calc(50% - 10px);
+  left: calc(50% - 50px);
+  transition: 1s;
+}
